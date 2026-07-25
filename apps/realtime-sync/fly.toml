@@ -1,0 +1,22 @@
+# Fly.io app config. A separate app (and this file deployed with --config)
+# is used per environment: arcanavtt-realtime-staging / arcanavtt-realtime-prod.
+# app name, DATABASE_URL and SUPABASE_JWT_SECRET are set per-environment via
+# `fly secrets set` and the FLY_APP_NAME_* / FLY_API_TOKEN GitHub secrets —
+# see docs/SETUP.md.
+app = "arcanavtt-realtime"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 1234
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
